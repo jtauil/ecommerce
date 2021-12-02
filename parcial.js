@@ -79,7 +79,12 @@ let productos = [
     },
    
 ];
+let carrito = {
+    ids : [],
+    cant : [],
+    total: 0,
 
+};
 const listadoProductos = document.getElementById('productos-destacados');
 listadoProductos.setAttribute('class', 'row container-fluid mx-auto')
 
@@ -94,17 +99,17 @@ for (let producto of productos){
 
 
     div.style.backgroundColor = `white`;
-    div.setAttribute('class', 'col-12 mb-2 col-md-4 p-0 d-block container-fluid mx-auto')
+    div.setAttribute('class', 'item col-12 mb-2 col-md-4 p-0 d-block container-fluid mx-auto')
     contenedorImg.append(imagen);
     imagen.src = `${producto.imagen}`
-    imagen.setAttribute(`class`, 'img-fluid');
+    imagen.setAttribute(`class`, 'imagen img-fluid');
     imagen.alt = producto.nombre;
     contenedor.setAttribute(`class`, 'py-2');
     contenedor.append(tituloProducto, precio, boton);
     tituloProducto.innerHTML = producto.nombre;
     tituloProducto.setAttribute('class', 'nombreProd text-center d-flex justify-center mx-auto');
     precio.innerHTML = `$ ${producto.precio}`;
-    precio.setAttribute(`class`, 'mx-auto');
+    precio.setAttribute(`class`, 'precio mx-auto');
     boton.innerHTML = `Agregar al carrito`;
     boton.style.backgroundColor = '#00FFFF';
     boton.setAttribute('class', 'btn-agregar');
@@ -120,33 +125,115 @@ for (let producto of productos){
 
 console.log(listadoProductos);
 
-const carrito = [];
-const total = 0;
 
-const agregarProducto = (e) => {
-    /*const id = parseFloat(e.target.dataset.id);
-    let precio = parseFloat(e.target.dataset.precio);
+const addToCart = document.querySelectorAll('.btn-agregar');
+    addToCart.forEach(botonAgregar => {
+        botonAgregar.addEventListener('click', addClickeado);
+
+    });
+
+function addClickeado(e){
+    const boton = e.target;
+    const item = boton.closest('.item');
+
+    const itemTitle = item.querySelector('.nombreProd').textContent;
+    const itemPrice = item.querySelector('.precio').textContent;
+    const itemImage = item.querySelector('.imagen').src;
 
 
-    // busco si está en el carrito, si está da el indice sino 1 
-    let indiceProducto = carrito.ids.indexOf(id);
+   
+    addItemToShoppingCart(itemImage, itemPrice, itemTitle)
+ 
+}
 
-    if(indiceProducto == -1){
-        carrito.ids.push(id);
-        carrito.cantidad.push(1);
-    }else {
-        carrito.cantidad[indiceProducto]++; //si el producto está, se incrementa
-    }
+const shoppingCartItems = document.querySelector('.shoppingCartItems');
 
-    carrito.total += precio;
+function addItemToShoppingCart(itemImage, itemPrice, itemTitle){
+    const shoppingCartRow = document.createElement('div');
+    const shoppingCartContent = document.createElement('div');
+    const contenedor2 = document.createElement('div');
+    const imagenProd = document.createElement('img');
+    const title = document.createElement('h4');
 
-    const cantidadProductos = carrito.ids.length;
-    const iconoCarrito = document.querySelector('.notificacion-carrito');
-    iconoCarrito.innerHTML = cantidadProductos;*/
+    const divPrecio = document.createElement('div');
+    const textoPrecio = document.createElement('p');
 
-    carrito.push(e.target.getAttribute('btn-agregar'))
+    const divCantidad = document.createElement('div');
+    const inputCant = document.createElement('input');
+    const botonEliminar = document.createElement('button');
+
+
+    shoppingCartContent.setAttribute('class', 'row');
+    contenedor2.setAttribute('class', 'col-6');
+    imagenProd.src = `${itemImage}`;
+    imagenProd.setAttribute = ('class' , 'shopping-cart-image');
+    title.setAttribute = ('class', 'shopping-cart-item-title');
+    title.textContent = `${itemTitle}`;
+    divPrecio.setAttribute = ('class', 'shopping-cart-price');
+    textoPrecio.setAttribute = ('class' , 'item-price');
+    textoPrecio.textContent = `${itemPrice}`;
+
+    divCantidad.setAttribute = ('class', 'shopping-cart-quantity d-flex justify-content-between');
+    inputCant.setAttribute = ('class', 'shopping-cart-quantity-input');
+    botonEliminar.setAttribute('class', 'button-delete btn btn-danger');
+
+    shoppingCartRow.innerHTML = shoppingCartContent;
+    shoppingCartItems.append(shoppingCartRow);
 
 
 }
 
-console.log(carrito);
+
+
+//for (item of carrito){
+  //  const contenedor = document.createElement('div');
+    //const botonCerrar = document.createElement('a');
+//    botonCerrar.textContent = 'X';
+
+  //  const listaCarrito = document.createElement('ul');
+    //const itemCarrito = document.createElement('li');
+
+    
+    //const btnVaciar = document.createElement('button');
+    //const btnComprar = document.createElement('button');
+
+    //contenedor.style.backgroundColor = '#00FFFF';
+   // contenedor.setAttribute('class' , 'col-md-12');
+
+    ///itemCarrito
+
+
+//}
+
+
+/*const addProduct = (e) => {
+    let id = parseFloat(e.target.dataset.id);
+    let precio = parseFloat(e.target.dataset.precio);
+
+    let indiceProducto = carrito.ids.indexOf(id);
+
+    if(indiceProducto == -1){
+        carrito.ids.push(id);
+        carrito.cant.push(1);
+    }else{
+        carrito.cant[indiceProducto]++;
+    }
+
+carrito.total += precio;
+
+let cantidadProductos = carrito.ids.length;
+let notiCarrito = document.querySelector('.notifCarrito');
+notiCarrito.innerHTML = cantidadProductos;
+
+};
+
+let iconCarrito = document.querySelector('.iconcarrito');
+let modalCarrito = document.createElement('div');
+modalCarrito.className = ('carrito overflow-auto container-fluid p-0');
+
+iconCarrito.addEventListener('click' , (e) => {
+
+})*/
+
+
+
