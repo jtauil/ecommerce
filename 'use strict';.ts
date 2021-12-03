@@ -88,17 +88,8 @@ document.body.append(btnSeeCart);
 btnSeeCart.style.background = 'red';
 btnSeeCart.setAttribute('class', 'btn-verCarrito')
 btnSeeCart.addEventListener('click', e => {
-    seeCart(e);
-
-
-   
-    
+    seeCart();
 })
-
-
-let cont = 0;
-let total = 0;
-let pTotal ;
 
 for (let producto of productos){
     const div = document.createElement('div');
@@ -130,17 +121,14 @@ for (let producto of productos){
     boton.dataset.categoria = `${producto.categoria}`;
     boton.addEventListener('click', e => {
         addToCart(e);
-        pTotal = document.getElementById('total');
-        total += producto.precio;
-        pTotal.innerHTML = total;
- 
 
     })
     
     div.append(imagen, contenedor);
     listadoProductos.append(div);
-
    
+
+
 
 }
 let carrito = {
@@ -149,12 +137,6 @@ let carrito = {
     total : 0,
 
 }
-
-
-
-
-let indiceProducto;
-
 const  addToCart = (e) => {
 
     let id = parseFloat(e.target.dataset.id);
@@ -171,21 +153,20 @@ const  addToCart = (e) => {
 
     }
 
-    let contador = document.getElementById('itemsProd');
-    cont ++;
+    carrito.total += precio;
 
-    contador.innerHTML = cont;
-
+    console.log(carrito.ids);
+    
  
 }
 const divCarrito = document.createElement('div');
 document.body.append(divCarrito);
+let total = 0;
+let contadorCarrito = 0;
 
 
 const seeCart = (e) => {
-divCarrito.innerHTML = '';
     carrito.ids.forEach(id => {
-        console.log(carrito.ids);
         const producto =  productos.find(x => x.id === id) // find objeto tal que x.id sea igual a id 
         const divProducto = document.createElement('div');
         const divImg = document.querySelector('div');
@@ -193,19 +174,15 @@ divCarrito.innerHTML = '';
         const divTexto = document.createElement('div');
         const itemTitle = document.createElement('h3');
         const itemPrecio = document.createElement('p');
-        const divAdd = document.createElement('div');
         const addBtn = document.createElement('button');
-        const divDel = document.createElement('div');
-        const delBtn = document.createElement('button');
         const divTotal = document.createElement('div');
         const inputCant = document.createElement('input');
 
         divProducto.style.backgroundColor = 'white';
         divProducto.setAttribute('class', 'col-12');
-        divImg.setAttribute('class', 'divImgCarrito')
         divImg.append(itemImg)
         itemImg.src = producto.imagen;
-        itemImg.setAttribute = ('class', 'imgcarrito');
+        itemImg.setAttribute = ('class', 'imagen img-fluid');
         itemImg.alt = producto.nombre;
         divTexto.append(itemTitle, itemPrecio);
         divTexto.setAttribute('class', 'py-2');
@@ -213,41 +190,16 @@ divCarrito.innerHTML = '';
         itemTitle.setAttribute('class', 'text-center');
         itemPrecio.innerHTML = `${producto.precio}`;
 
-        divAdd.setAttribute('class', 'divBtn');
-        addBtn.setAttribute('class', 'btn')
-        addBtn.innerHTML = '+';
-        addBtn.addEventListener('click', e => {
-            for(let i = 0; i < carrito.ids.length; i++){
-                if( carrito.ids.includes(i)){
-                 carrito.cantidad += 1;
-                 
-                }
-               }
-        
-        })
-
-        delBtn.setAttribute('class', 'btn btn-danger');
-        delBtn.addEventListener('click', e => {
-                if(total > 0){
-                 carrito.ids.splice(id);
-                 e.target.parentNode.remove(); 
-                 contador -= 1; 
-                
-                }
-
-        })
-   
-
-        
-        divProducto.append(itemImg, divTexto, divAdd, addBtn, delBtn);
+        divProducto.append(itemImg, divTexto);
         divCarrito.append(divProducto);
-        console.log(carrito)
+        let pTotal = document.getElementById('total');
+        total += producto.precio;
+        pTotal.innerHTML = total;
+
+        let cont = document.getElementById('itemsProd');
+        contadorCarrito += 1;
+        cont.innerHTML = contadorCarrito;
+        
+ 
 });
 }
-
-
-
-
-
-
-

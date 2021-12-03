@@ -406,3 +406,11 @@ input[type='submit']:hover {
     width: 100px;
     height: 100px;
 }
+
+.imgcarrito{
+    width: 50%;
+}
+
+.divImgCarrito{
+    width: 50%;
+}
