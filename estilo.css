@@ -400,3 +400,9 @@ input[type='submit']:hover {
         overflow: hidden;
     }
 }
+
+
+.btn-verCarrito {
+    width: 100px;
+    height: 100px;
+}

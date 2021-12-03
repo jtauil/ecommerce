@@ -79,14 +79,17 @@ let productos = [
     },
    
 ];
-let carrito = {
-    ids : [],
-    cant : [],
-    total: 0,
 
-};
 const listadoProductos = document.getElementById('productos-destacados');
-listadoProductos.setAttribute('class', 'row container-fluid mx-auto')
+listadoProductos.setAttribute('class', 'row container-fluid mx-auto');
+
+let btnSeeCart = document.createElement('button');
+document.body.append(btnSeeCart);
+btnSeeCart.style.background = 'red';
+btnSeeCart.setAttribute('class', 'btn-verCarrito')
+btnSeeCart.addEventListener('click', e => {
+    seeCart();
+})
 
 for (let producto of productos){
     const div = document.createElement('div');
@@ -108,7 +111,7 @@ for (let producto of productos){
     contenedor.append(tituloProducto, precio, boton);
     tituloProducto.innerHTML = producto.nombre;
     tituloProducto.setAttribute('class', 'nombreProd text-center d-flex justify-center mx-auto');
-    precio.innerHTML = `$ ${producto.precio}`;
+    precio.innerHTML = `${producto.precio}`;
     precio.setAttribute(`class`, 'precio mx-auto');
     boton.innerHTML = `Agregar al carrito`;
     boton.style.backgroundColor = '#00FFFF';
@@ -116,124 +119,89 @@ for (let producto of productos){
     boton.dataset.id = `${producto.id}`;
     boton.dataset.precio = `${producto.precio}`;
     boton.dataset.categoria = `${producto.categoria}`;
+    boton.addEventListener('click', e => {
+        addToCart(e);
+
+    })
+    
     div.append(imagen, contenedor);
     listadoProductos.append(div);
-
-
-
-}
-
-console.log(listadoProductos);
-
-
-const addToCart = document.querySelectorAll('.btn-agregar');
-    addToCart.forEach(botonAgregar => {
-        botonAgregar.addEventListener('click', addClickeado);
-
-    });
-
-function addClickeado(e){
-    const boton = e.target;
-    const item = boton.closest('.item');
-
-    const itemTitle = item.querySelector('.nombreProd').textContent;
-    const itemPrice = item.querySelector('.precio').textContent;
-    const itemImage = item.querySelector('.imagen').src;
-
-
    
-    addItemToShoppingCart(itemImage, itemPrice, itemTitle)
- 
-}
 
-const shoppingCartItems = document.querySelector('.shoppingCartItems');
-
-function addItemToShoppingCart(itemImage, itemPrice, itemTitle){
-    const shoppingCartRow = document.createElement('div');
-    const shoppingCartContent = document.createElement('div');
-    const contenedor2 = document.createElement('div');
-    const imagenProd = document.createElement('img');
-    const title = document.createElement('h4');
-
-    const divPrecio = document.createElement('div');
-    const textoPrecio = document.createElement('p');
-
-    const divCantidad = document.createElement('div');
-    const inputCant = document.createElement('input');
-    const botonEliminar = document.createElement('button');
-
-
-    shoppingCartContent.setAttribute('class', 'row');
-    contenedor2.setAttribute('class', 'col-6');
-    imagenProd.src = `${itemImage}`;
-    imagenProd.setAttribute = ('class' , 'shopping-cart-image');
-    title.setAttribute = ('class', 'shopping-cart-item-title');
-    title.textContent = `${itemTitle}`;
-    divPrecio.setAttribute = ('class', 'shopping-cart-price');
-    textoPrecio.setAttribute = ('class' , 'item-price');
-    textoPrecio.textContent = `${itemPrice}`;
-
-    divCantidad.setAttribute = ('class', 'shopping-cart-quantity d-flex justify-content-between');
-    inputCant.setAttribute = ('class', 'shopping-cart-quantity-input');
-    botonEliminar.setAttribute('class', 'button-delete btn btn-danger');
-
-    shoppingCartRow.innerHTML = shoppingCartContent;
-    shoppingCartItems.append(shoppingCartRow);
 
 
 }
+let carrito = {
+    ids : [],
+    cantidad : [],
+    total : 0,
 
+}
+const  addToCart = (e) => {
 
-
-//for (item of carrito){
-  //  const contenedor = document.createElement('div');
-    //const botonCerrar = document.createElement('a');
-//    botonCerrar.textContent = 'X';
-
-  //  const listaCarrito = document.createElement('ul');
-    //const itemCarrito = document.createElement('li');
-
-    
-    //const btnVaciar = document.createElement('button');
-    //const btnComprar = document.createElement('button');
-
-    //contenedor.style.backgroundColor = '#00FFFF';
-   // contenedor.setAttribute('class' , 'col-md-12');
-
-    ///itemCarrito
-
-
-//}
-
-
-/*const addProduct = (e) => {
     let id = parseFloat(e.target.dataset.id);
     let precio = parseFloat(e.target.dataset.precio);
 
     let indiceProducto = carrito.ids.indexOf(id);
 
-    if(indiceProducto == -1){
+    if (indiceProducto === -1){
         carrito.ids.push(id);
-        carrito.cant.push(1);
-    }else{
-        carrito.cant[indiceProducto]++;
+        carrito.cantidad.push(1);
+    
+    }else {
+        carrito.cantidad[indiceProducto]++;
+
     }
 
-carrito.total += precio;
+    carrito.total += precio;
 
-let cantidadProductos = carrito.ids.length;
-let notiCarrito = document.querySelector('.notifCarrito');
-notiCarrito.innerHTML = cantidadProductos;
+    console.log(carrito.ids);
+    
+ 
+}
+const divCarrito = document.createElement('div');
+document.body.append(divCarrito);
+let total = 0;
+let contadorCarrito = 0;
 
-};
 
-let iconCarrito = document.querySelector('.iconcarrito');
-let modalCarrito = document.createElement('div');
-modalCarrito.className = ('carrito overflow-auto container-fluid p-0');
+const seeCart = (e) => {
+    carrito.ids.forEach(id => {
+        const producto =  productos.find(x => x.id === id) // find objeto tal que x.id sea igual a id 
+        const divProducto = document.createElement('div');
+        const divImg = document.querySelector('div');
+        const itemImg = document.createElement('img');
+        const divTexto = document.createElement('div');
+        const itemTitle = document.createElement('h3');
+        const itemPrecio = document.createElement('p');
+        const addBtn = document.createElement('button');
+        const divTotal = document.createElement('div');
+        const inputCant = document.createElement('input');
 
-iconCarrito.addEventListener('click' , (e) => {
+        divProducto.style.backgroundColor = 'white';
+        divProducto.setAttribute('class', 'col-12');
+        divImg.append(itemImg)
+        itemImg.src = producto.imagen;
+        itemImg.setAttribute = ('class', 'imagen img-fluid');
+        itemImg.alt = producto.nombre;
+        divTexto.append(itemTitle, itemPrecio);
+        divTexto.setAttribute('class', 'py-2');
+        itemTitle.innerHTML = `${producto.nombre}`;
+        itemTitle.setAttribute('class', 'text-center');
+        itemPrecio.innerHTML = `${producto.precio}`;
 
-})*/
+        divProducto.append(itemImg, divTexto);
+        divCarrito.append(divProducto);
+        let pTotal = document.getElementById('total');
+        total += producto.precio;
+        pTotal.innerHTML = total;
 
+        let cont = document.getElementById('itemsProd');
+        contadorCarrito += 1;
+        cont.innerHTML = contadorCarrito;
+        
+ 
+});
+}
 
 
