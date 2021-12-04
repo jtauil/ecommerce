@@ -309,7 +309,7 @@ input[type='submit']:hover {
     text-align: center;
 }
 
-.modal {
+#modalCarrito {
     position: fixed;
     z-index: 1;
     display: flex;
@@ -322,9 +322,16 @@ input[type='submit']:hover {
     right: 0;
     overflow: auto;
     padding: 2rem;
+    height: 100%;
     background-color: rgba(0, 0, 0, 0.9);
 }
 
+
+.modal .imgCarrito {
+    height: 30%;
+}
+
+/*
 .modal a {
     text-decoration: none;
     color: #d0e0e3;
@@ -353,10 +360,6 @@ input[type='submit']:hover {
 .modal a.cerrar:hover {
     background-color: #1a4a5e;
     color: rgba(255, 255, 255, 0.9);
-}
-
-.modal img {
-    height: 30%;
 }
 
 .modal h3,

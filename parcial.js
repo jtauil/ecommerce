@@ -59,7 +59,7 @@ let productos = [
         descripcion: 'Sonidos de Progressive',
         precio: 10500,
         imagen: 'imagenes/prod7.png',
-        categoria: 'house',
+        categoria: 'indie',
     },
     {
         id: 8,
@@ -79,21 +79,29 @@ let productos = [
     },
    
 ];
+const miniCarrito = document.getElementById('verCarrito');
 
-const listadoProductos = document.getElementById('productos-destacados');
-listadoProductos.setAttribute('class', 'row container-fluid mx-auto');
 
 let btnSeeCart = document.createElement('button');
-document.body.append(btnSeeCart);
-btnSeeCart.style.background = 'red';
-btnSeeCart.setAttribute('class', 'btn-verCarrito')
+btnSeeCart.style.background = 'grey';
+btnSeeCart.innerHTML = 'Ver carrito';
+btnSeeCart.style.borderStyle = 'solid';
+btnSeeCart.setAttribute('class', 'btn-verCarrito m-4')
+miniCarrito.append(btnSeeCart);
 btnSeeCart.addEventListener('click', e => {
     seeCart(e);
 
 
    
     
-})
+})   
+
+
+const listadoProductos = document.createElement('div');
+document.body.append(listadoProductos);
+listadoProductos.setAttribute('class', 'row container-fluid mx-auto mb-5');
+
+
 
 
 let cont = 0;
@@ -111,7 +119,7 @@ for (let producto of productos){
 
 
     div.style.backgroundColor = `white`;
-    div.setAttribute('class', 'item col-12 mb-2 col-md-4 p-0 d-block container-fluid mx-auto')
+    div.setAttribute('class', 'item col-4 mb-5 col-md-4 p-0 d-block mx-auto')
     contenedorImg.append(imagen);
     imagen.src = `${producto.imagen}`
     imagen.setAttribute(`class`, 'imagen img-fluid');
@@ -123,8 +131,9 @@ for (let producto of productos){
     precio.innerHTML = `${producto.precio}`;
     precio.setAttribute(`class`, 'precio mx-auto');
     boton.innerHTML = `Agregar al carrito`;
-    boton.style.backgroundColor = '#00FFFF';
-    boton.setAttribute('class', 'btn-agregar');
+    boton.style.backgroundColor = 'white';
+    boton.style.borderStyle = 'solid';
+    boton.setAttribute('class', 'btn-agregar p-3');
     boton.dataset.id = `${producto.id}`;
     boton.dataset.precio = `${producto.precio}`;
     boton.dataset.categoria = `${producto.categoria}`;
@@ -140,7 +149,6 @@ for (let producto of productos){
     div.append(imagen, contenedor);
     listadoProductos.append(div);
 
-   
 
 }
 let carrito = {
@@ -149,8 +157,6 @@ let carrito = {
     total : 0,
 
 }
-
-
 
 
 let indiceProducto;
@@ -178,12 +184,24 @@ const  addToCart = (e) => {
 
  
 }
-const divCarrito = document.createElement('div');
-document.body.append(divCarrito);
 
 
 const seeCart = (e) => {
-divCarrito.innerHTML = '';
+
+
+    const divCarrito = document.createElement('div');
+ 
+    divCarrito.id = 'modalCarrito';
+    divCarrito.style.display = 'block';
+    divCarrito.style.height = '1000px;'
+    divCarrito.style.position = 'absolute';
+    document.body.append(divCarrito);
+
+   
+
+
+
+
     carrito.ids.forEach(id => {
         console.log(carrito.ids);
         const producto =  productos.find(x => x.id === id) // find objeto tal que x.id sea igual a id 
@@ -195,17 +213,17 @@ divCarrito.innerHTML = '';
         const itemPrecio = document.createElement('p');
         const divAdd = document.createElement('div');
         const addBtn = document.createElement('button');
-        const divDel = document.createElement('div');
         const delBtn = document.createElement('button');
-        const divTotal = document.createElement('div');
-        const inputCant = document.createElement('input');
+       
 
         divProducto.style.backgroundColor = 'white';
         divProducto.setAttribute('class', 'col-12');
-        divImg.setAttribute('class', 'divImgCarrito')
-        divImg.append(itemImg)
+        divImg.setAttribute('class', 'divImgCarrito');
+        divImg.append(itemImg);
         itemImg.src = producto.imagen;
-        itemImg.setAttribute = ('class', 'imgcarrito');
+        itemImg.setAttribute = ('class', 'imgCarrito');
+        itemImg.style.height = '200 px';
+        itemImg.style.width = '200px';
         itemImg.alt = producto.nombre;
         divTexto.append(itemTitle, itemPrecio);
         divTexto.setAttribute('class', 'py-2');
@@ -232,18 +250,39 @@ divCarrito.innerHTML = '';
                  carrito.ids.splice(id);
                  e.target.parentNode.remove(); 
                  contador -= 1; 
+
+                 total -= producto.precio;
                 
                 }
 
         })
-   
-
-        
+    
         divProducto.append(itemImg, divTexto, divAdd, addBtn, delBtn);
         divCarrito.append(divProducto);
-        console.log(carrito)
+       
+
+
 });
+    const divTotal = document.createElement('div');
+    const textoTotal = document.createElement('p');
+    divTotal.setAttribute('class', 'totalCarritoDiv');
+    textoTotal.setAttribute('class', 'totCarritoTxt')
+    textoTotal.innerHTML = `Total: ${total}`;
+    divTotal.style.color = 'red';
+    divTotal.style.backgroundColor = 'black';
+    divTotal.append(textoTotal);
+    const a = document.createElement('a');
+    a.href = '#';
+    a.innerHTML = 'X';
+    a.addEventListener('click' , e =>{
+        document.getElementById('modalCarrito').remove();
+    });
+    divCarrito.append(divTotal, a);
 }
+
+ // hacer funcion vaciar carrito
+
+// ver como puedo hacer: modal carrito y actualizar
 
 
 

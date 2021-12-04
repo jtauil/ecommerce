@@ -10,7 +10,7 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <body>
         <header>
-            <h1>Programación I | Parcial 2 | APELLIDO/S | Mi carrito</h1>
+            <h1>Programación I | Parcial 2 | Tauil | Mi carrito (Rústico)</h1>
         </header>
         <main>
             <div id="minicarrito container-fluid" >
@@ -18,156 +18,13 @@
                 <p>$<span id="total">0</span> es el total</p>
                 <p>Filtrar por <a href="#">Categoría 1</a> | <a href="#">Categoría 2</a> | <a href="#">Categoría 3</a></p>
             </div>
+            <div id="verCarrito">
+
+            </div>
            
             <h2>Productos</h2>
-            <div id="productos-destacados">
-            <!-- Generar el contenido del div#productos dinámicamente 
-            
-                <div>
-                    <img src="producto-de-ejemplo.jpg" alt="Nombre del producto" />
-                    <div>
-                        <h3>Producto</h3>
-                        <p>Descripción del producto</h3>
-                        <p>Precio: $<span>0</span></p>
-                        <p>Categoría</p>
-                        <button>Agregar</button>
-                    </div>
-                </div>
-                <div>
-                    <img src="producto-de-ejemplo.jpg" alt="Nombre del producto" />
-                    <div>
-                        <h3>Producto</h3>
-                        <p>Descripción del producto</h3>
-                        <p>Precio: $<span>0</span></p>
-                        <p>Categoría</p>
-                        <button>Agregar</button>
-                    </div>
-                </div>
-                <div>
-                    <img src="producto-de-ejemplo.jpg" alt="Nombre del producto" />
-                    <div>
-                        <h3>Producto</h3>
-                        <p>Descripción del producto</h3>
-                        <p>Precio: $<span>0</span></p>
-                        <p>Categoría</p>
-                        <button>Agregar</button>
-                    </div>
-                </div>
-                <div>
-                    <img src="producto-de-ejemplo.jpg" alt="Nombre del producto" />
-                    <div>
-                        <h3>Producto</h3>
-                        <p>Descripción del producto</h3>
-                        <p>Precio: $<span>0</span></p>
-                        <p>Categoría</p>
-                        <button>Agregar</button>
-                    </div>
-                </div>
-                <div>
-                    <img src="producto-de-ejemplo.jpg" alt="Nombre del producto" />
-                    <div>
-                        <h3>Producto</h3>
-                        <p>Descripción del producto</h3>
-                        <p>Precio: $<span>0</span></p>
-                        <p>Categoría</p>
-                        <button>Agregar</button>
-                    </div>
-                </div>
-                <div>
-                    <img src="producto-de-ejemplo.jpg" alt="Nombre del producto" />
-                    <div>
-                        <h3>Producto</h3>
-                        <p>Descripción del producto</h3>
-                        <p>Precio: $<span>0</span></p>
-                        <p>Categoría</p>
-                        <button>Agregar</button>
-                    </div>
-                </div> 
-            -->
-            </div>
-        </main>
     
-
-        <div class="modal" id="modalProducto">
-        </div>
-
-       
-        <div class="modal" id="modalCarrito">
-             <!-- 
-            <a class="cerrar" href="javascript:void(0)">X</a>
-            <p>Items: <span>3</span> - Total: <span>$0</span></p>
-            <hr />
-            <ul>
-                <li>Nombre del producto <span>$0</span> <span>0 items</span> <a href="#">Eliminar</a></li>
-                <li>Nombre del producto <span>$0</span> <span>0 items</span> <a href="#">Eliminar</a></li>
-                <li>Nombre del producto <span>$0</span> <span>0 items</span> <a href="#">Eliminar</a></li>
-            </ul>
-            <button>Vaciar</button>
-            <button>Ir al checkout</button>
-
-        </div>
-    
-    <div>
-                    <img src="producto-de-ejemplo.jpg" alt="Nombre del producto" />
-                    <div>
-                        <h3>Producto</h3>
-                        <p>Descripción del producto</h3>
-                        <p>Precio: $<span>0</span></p>
-                        <p>Categoría</p>
-                        <button>Agregar</button>
-                    </div>
-                </div>
-                <div>
-                    <img src="producto-de-ejemplo.jpg" alt="Nombre del producto" />
-                    <div>
-                        <h3>Producto</h3>
-                        <p>Descripción del producto</h3>
-                        <p>Precio: $<span>0</span></p>
-                        <p>Categoría</p>
-                        <button>Agregar</button>
-                    </div>
-                </div>
-                <div>
-                    <img src="producto-de-ejemplo.jpg" alt="Nombre del producto" />
-                    <div>
-                        <h3>Producto</h3>
-                        <p>Descripción del producto</h3>
-                        <p>Precio: $<span>0</span></p>
-                        <p>Categoría</p>
-                        <button>Agregar</button>
-                    </div>
-                </div>
-                <div>
-                    <img src="producto-de-ejemplo.jpg" alt="Nombre del producto" />
-                    <div>
-                        <h3>Producto</h3>
-                        <p>Descripción del producto</h3>
-                        <p>Precio: $<span>0</span></p>
-                        <p>Categoría</p>
-                        <button>Agregar</button>
-                    </div>
-                </div>
-                <div>
-                    <img src="producto-de-ejemplo.jpg" alt="Nombre del producto" />
-                    <div>
-                        <h3>Producto</h3>
-                        <p>Descripción del producto</h3>
-                        <p>Precio: $<span>0</span></p>
-                        <p>Categoría</p>
-                        <button>Agregar</button>
-                    </div>
-                </div>
-                <div>
-                    <img src="producto-de-ejemplo.jpg" alt="Nombre del producto" />
-                    <div>
-                        <h3>Producto</h3>
-                        <p>Descripción del producto</h3>
-                        <p>Precio: $<span>0</span></p>
-                        <p>Categoría</p>
-                        <button>Agregar</button>
-                    </div>
-                </div>-->
-
+  
         <script src="parcial.js"> </script>
     </body>
 </html>
