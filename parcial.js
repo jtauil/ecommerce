@@ -11,7 +11,7 @@ let productos = [
         descripcion: 'Pack de loops y sonidos para producir House',
         precio: 6000,
         imagen: 'imagenes/prod1.png',
-        categoria: 'house',
+        categoria: 'House',
     },
     {
         id: 2,
@@ -19,7 +19,7 @@ let productos = [
         descripcion: 'Pack de sonidos de Techno',
         precio: 8000,
         imagen: 'imagenes/prod2.jpg',
-        categoria: 'techno',
+        categoria: 'Techno',
     },
     {
         id: 3,
@@ -27,7 +27,7 @@ let productos = [
         descripcion: 'Pack de sonidos Afro-House',
         precio: 4500,
         imagen: 'imagenes/prod3.jpg',
-        categoria: 'house',
+        categoria: 'House',
     },
     {
         id: 4,
@@ -35,7 +35,7 @@ let productos = [
         descripcion: 'Sonidos progressive house',
         precio: 7800,
         imagen: 'imagenes/prod4.jpg',
-        categoria: 'house',
+        categoria: 'Progressive House',
     },
     {
         id: 5,
@@ -43,7 +43,7 @@ let productos = [
         descripcion: 'Loops de melodic techno',
         precio: 9000,
         imagen: 'imagenes/prod5.jpg',
-        categoria: 'techno',
+        categoria: 'Techno',
     },
     {
         id: 6,
@@ -51,7 +51,7 @@ let productos = [
         descripcion: 'Sonidos house minimal/micro',
         precio: 6500,
         imagen: 'imagenes/prod6.jpg',
-        categoria: 'house',
+        categoria: 'House',
     },
     {
         id: 7,
@@ -59,7 +59,7 @@ let productos = [
         descripcion: 'Sonidos de Progressive',
         precio: 10500,
         imagen: 'imagenes/prod7.png',
-        categoria: 'indie',
+        categoria: 'Indie',
     },
     {
         id: 8,
@@ -67,7 +67,7 @@ let productos = [
         descripcion: 'Sonidos techno',
         precio: 12500,
         imagen: 'imagenes/prod8.jpg',
-        categoria: 'techno',
+        categoria: 'Techno',
     },
     {
         id: 9,
@@ -75,7 +75,7 @@ let productos = [
         descripcion: 'Sonidos Indie',
         precio: 8500,
         imagen: 'imagenes/prod9.jpg',
-        categoria: 'indie',
+        categoria: 'Indie',
     },
    
 ];
@@ -94,7 +94,16 @@ btnSeeCart.addEventListener('click', e => {
 
    
     
-})   
+});
+
+let btnFiltro = document.querySelectorAll('.btnFiltro')
+console.log(btnFiltro);
+btnFiltro.forEach(el => el.addEventListener('click', e =>{
+    filtroCategoria(el.innerHTML);
+}));
+
+
+
 
 
 const listadoProductos = document.createElement('div');
@@ -114,6 +123,8 @@ for (let producto of productos){
     const imagen = document.createElement('img');
     const contenedor = document.createElement('div');
     const tituloProducto = document.createElement('h3');
+    const descripcion  = document.createElement('p');
+    const categoria = document.createElement('p');
     const precio = document.createElement('p');
     const boton = document.createElement('btn');
 
@@ -125,10 +136,14 @@ for (let producto of productos){
     imagen.setAttribute(`class`, 'imagen img-fluid');
     imagen.alt = producto.nombre;
     contenedor.setAttribute(`class`, 'py-2');
-    contenedor.append(tituloProducto, precio, boton);
+    contenedor.append(tituloProducto, precio, descripcion,categoria, boton);
     tituloProducto.innerHTML = producto.nombre;
     tituloProducto.setAttribute('class', 'nombreProd text-center d-flex justify-center mx-auto');
-    precio.innerHTML = `${producto.precio}`;
+    descripcion.innerHTML = `${producto.descripcion}`;
+    descripcion.setAttribute('class', 'mx-auto');
+    categoria.innerHTML = `Género: ${producto.categoria}`;
+
+    precio.innerHTML = `$ ${producto.precio}`;
     precio.setAttribute(`class`, 'precio mx-auto');
     boton.innerHTML = `Agregar al carrito`;
     boton.style.backgroundColor = 'white';
@@ -161,6 +176,14 @@ let carrito = {
 
 let indiceProducto;
 
+
+const filtroCategoria  = (e) => {
+    let arrayHouse = productos.filter((b) => { return b.categoria == e});
+    
+    console.log(arrayHouse);
+    
+}
+
 const  addToCart = (e) => {
 
     let id = parseFloat(e.target.dataset.id);
@@ -190,17 +213,15 @@ const seeCart = (e) => {
 
 
     const divCarrito = document.createElement('div');
+    const divModal = document.createElement('div');
  
-    divCarrito.id = 'modalCarrito';
-    divCarrito.style.display = 'block';
-    divCarrito.style.height = '1000px;'
-    divCarrito.style.position = 'absolute';
-    document.body.append(divCarrito);
+    divModal.id = 'modalCarrito';
+    divModal.style.display = 'block';
+    divModal.style.height = '1000px;'
+    divModal.style.position = 'absolute';
+    document.body.append(divModal);
 
    
-
-
-
 
     carrito.ids.forEach(id => {
         console.log(carrito.ids);
@@ -269,20 +290,30 @@ const seeCart = (e) => {
     textoTotal.setAttribute('class', 'totCarritoTxt')
     textoTotal.innerHTML = `Total: ${total}`;
     divTotal.style.color = 'red';
-    divTotal.style.backgroundColor = 'black';
+    divTotal.style.backgroundColor = 'white';
     divTotal.append(textoTotal);
     const a = document.createElement('a');
+    a.setAttribute('class', 'p-3')
+    a.style.backgroundColor = 'white';
     a.href = '#';
     a.innerHTML = 'X';
     a.addEventListener('click' , e =>{
         document.getElementById('modalCarrito').remove();
     });
-    divCarrito.append(divTotal, a);
+    const emptyCart = document.createElement('button');
+    divCarrito.append(divTotal);
+
+    divModal.append(divCarrito,  a, emptyCart);
+   
+    emptyCart.setAttribute('class' ,'vaciar p-4');
+    emptyCart.style.backgroundColor = 'white';
+    emptyCart.innerHTML = 'VACIAR'
+    emptyCart.addEventListener('click', e => {
+        divCarrito.innerHTML = ''; 
+    });
 }
 
- // hacer funcion vaciar carrito
 
-// ver como puedo hacer: modal carrito y actualizar
 
 
 
