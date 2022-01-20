@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8" />
-        <title>Programación I | Parcial 2 | Tauil</title>
+        <title>Loop Library - final Julieta Tauil</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no" />
         <link rel="shortcut icon" href="favicon.ico" />
         <link rel="stylesheet" href="estilo.css" />
@@ -10,19 +10,67 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <body>
         <header>
-            <h1>Programación I | Parcial 2 | Tauil | Mi carrito (Rústico)</h1>
+        <nav class="navbar navbar-expand-lg py-3 container-fluid d-flex">
+            <div class="container">
+            <img src="imagenes/logo.svg" width="100" height="100" alt="logo">
+            <button class="btn-light navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto mx-auto  d-flex">
+                    
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Explore Sounds</a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="#">About us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Blog</a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="#">Contact us</a>
+                    </li>
+                </ul>
+                
+            </div>
+            <div>
+                <ul>
+                <li class="nav-item">
+                    <i class="fas fa-search"></i>
+                    <i class="fas fa-shopping-cart"></i>
+                </li>
+                </ul>
+            </div>
+            </div>
+            </nav>
         </header>
         <main>
+
+            <section id="home">
+                <div class="container-fluid">
+                    <h1><span>Encontrá tus sonidos favoritos</span></h1>
+                    <p>Explora más de 100 géneros y encontrá los mejores samples, loops y efectos para tus producciones</p>
+                </div>
+            </section>
+
+            <section>
             <div id="minicarrito container-fluid" >
                 <p><span id="itemsProd">0</span> ítems agregados</p>
                 <p>$<span id="total">0</span> es el total</p>
-                <p>Filtrar por <a class="btnFiltro" id="house" href="#">House</a> | <a class="btnFiltro" id="progre" href="#">Progressive House</a> | <a class="btnFiltro" id="techno" href="#">Techno</a></p>
+                <p>Filtrar por <a class="btnFiltro"  data-filter="house" href="#">House</a> | <a class="btnFiltro" data-filter="progre" href="#">Progressive House</a> | <a class="btnFiltro" data-filter="techno" href="#">Techno</a> <a class="btnFiltro" data-filter="all" href="#">Todos</a></p>
             </div>
             <div id="verCarrito">
 
             </div>
            
             <h2>Productos</h2>
+            </section>
     
   
         <script src="parcial.js"> </script>

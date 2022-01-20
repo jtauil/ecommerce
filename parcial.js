@@ -11,7 +11,7 @@ let productos = [
         descripcion: 'Pack de loops y sonidos para producir House',
         precio: 6000,
         imagen: 'imagenes/prod1.png',
-        categoria: 'House',
+        categoria: 'house',
     },
     {
         id: 2,
@@ -19,7 +19,7 @@ let productos = [
         descripcion: 'Pack de sonidos de Techno',
         precio: 8000,
         imagen: 'imagenes/prod2.jpg',
-        categoria: 'Techno',
+        categoria: 'techno',
     },
     {
         id: 3,
@@ -27,7 +27,7 @@ let productos = [
         descripcion: 'Pack de sonidos Afro-House',
         precio: 4500,
         imagen: 'imagenes/prod3.jpg',
-        categoria: 'House',
+        categoria: 'house',
     },
     {
         id: 4,
@@ -35,7 +35,7 @@ let productos = [
         descripcion: 'Sonidos progressive house',
         precio: 7800,
         imagen: 'imagenes/prod4.jpg',
-        categoria: 'Progressive House',
+        categoria: 'progre',
     },
     {
         id: 5,
@@ -43,7 +43,7 @@ let productos = [
         descripcion: 'Loops de melodic techno',
         precio: 9000,
         imagen: 'imagenes/prod5.jpg',
-        categoria: 'Techno',
+        categoria: 'techno',
     },
     {
         id: 6,
@@ -51,7 +51,7 @@ let productos = [
         descripcion: 'Sonidos house minimal/micro',
         precio: 6500,
         imagen: 'imagenes/prod6.jpg',
-        categoria: 'House',
+        categoria: 'house',
     },
     {
         id: 7,
@@ -59,7 +59,7 @@ let productos = [
         descripcion: 'Sonidos de Progressive',
         precio: 10500,
         imagen: 'imagenes/prod7.png',
-        categoria: 'Indie',
+        categoria: 'indie',
     },
     {
         id: 8,
@@ -67,7 +67,7 @@ let productos = [
         descripcion: 'Sonidos techno',
         precio: 12500,
         imagen: 'imagenes/prod8.jpg',
-        categoria: 'Techno',
+        categoria: 'techno',
     },
     {
         id: 9,
@@ -75,7 +75,7 @@ let productos = [
         descripcion: 'Sonidos Indie',
         precio: 8500,
         imagen: 'imagenes/prod9.jpg',
-        categoria: 'Indie',
+        categoria: 'indie',
     },
    
 ];
@@ -96,19 +96,9 @@ btnSeeCart.addEventListener('click', e => {
     
 });
 
-let btnFiltro = document.querySelectorAll('.btnFiltro')
-console.log(btnFiltro);
-btnFiltro.forEach(el => el.addEventListener('click', e =>{
-    filtroCategoria(el.innerHTML);
-}));
-
-
-
-
-
 const listadoProductos = document.createElement('div');
 document.body.append(listadoProductos);
-listadoProductos.setAttribute('class', 'row container-fluid mx-auto mb-5');
+listadoProductos.setAttribute('class', 'listadoProductos row container-fluid mx-auto mb-5');
 
 
 
@@ -130,10 +120,10 @@ for (let producto of productos){
 
 
     div.style.backgroundColor = `white`;
-    div.setAttribute('class', 'item col-4 mb-5 col-md-4 p-0 d-block mx-auto')
+    div.setAttribute('class', ` item col-4 mb-5 col-md-4 p-0 mx-auto`);
     contenedorImg.append(imagen);
     imagen.src = `${producto.imagen}`
-    imagen.setAttribute(`class`, 'imagen img-fluid');
+    imagen.setAttribute(`class`, 'imagen img-fluid w-75');
     imagen.alt = producto.nombre;
     contenedor.setAttribute(`class`, 'py-2');
     contenedor.append(tituloProducto, precio, descripcion,categoria, boton);
@@ -142,6 +132,7 @@ for (let producto of productos){
     descripcion.innerHTML = `${producto.descripcion}`;
     descripcion.setAttribute('class', 'mx-auto');
     categoria.innerHTML = `Género: ${producto.categoria}`;
+
 
     precio.innerHTML = `$ ${producto.precio}`;
     precio.setAttribute(`class`, 'precio mx-auto');
@@ -177,11 +168,63 @@ let carrito = {
 let indiceProducto;
 
 
-const filtroCategoria  = (e) => {
-    let arrayHouse = productos.filter((b) => { return b.categoria == e});
+let btnFiltro = document.querySelectorAll('.btnFiltro');
+let divBanner;
+
+const show = (e) => {
+    divBanner = document.createElement('div');
+    const banner = document.createElement('p');
+    console.log(divBanner);
     
-    console.log(arrayHouse);
-    
+    divBanner.id = 'divBanner';
+    divBanner.setAttribute('class', 'mt-5 h-25 w-25')
+    divBanner.style.display = 'block';
+    divBanner.style.backgroundColor = 'pink';
+    banner.setAttribute('class', 'banner');
+    banner.innerHTML = 'Sólo por hoy, 50% de descuento en samples de House seleccionados!'
+    listadoProductos.append(divBanner);
+    divBanner.append(banner);
+
+    setTimeout(disapear, 10000);
+}
+
+function disapear(){
+    let divLiquidado = document.getElementById('divBanner');
+    divLiquidado.style.display = 'none';
+}
+
+
+
+let items = document.querySelectorAll('.item');
+
+
+for (let i = 0; i< btnFiltro.length; i++){
+    btnFiltro[i].addEventListener('click', (e) => {
+        e.preventDefault();
+
+        show();
+        const filter = e.target.dataset.filter;
+       
+        items.forEach((el) =>{
+            if (filter == 'all'){
+               
+                el.style.display = 'block';
+            }else{ // else if
+                const genre = el.getElementsByClassName('btn-agregar')[0];
+                console.log(genre.dataset.categoria)
+                if (genre.dataset.categoria == filter){
+                    console.log('filtro ok')
+                    el.style.display = 'block';
+                }else{
+                    console.log('borrar')
+                    el.style.display = 'none';
+                }
+            }
+
+        })
+
+       
+    })
 }
 
 const  addToCart = (e) => {
