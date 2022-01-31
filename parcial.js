@@ -82,11 +82,13 @@ let productos = [
 const miniCarrito = document.getElementById('verCarrito');
 
 
-let btnSeeCart = document.createElement('button');
-btnSeeCart.style.background = 'grey';
-btnSeeCart.innerHTML = 'Ver carrito';
-btnSeeCart.style.borderStyle = 'solid';
+let btnSeeCart = document.createElement('div');
+let carritoIcon = document.createElement('img');
+carritoIcon.src = "imagenes/carrito.png";
+carritoIcon.setAttribute(`class`, 'imagen img-fluid w-100 mx-auto');
+btnSeeCart.style.background = 'none';
 btnSeeCart.setAttribute('class', 'btn-verCarrito m-4')
+btnSeeCart.append(carritoIcon);
 miniCarrito.append(btnSeeCart);
 btnSeeCart.addEventListener('click', e => {
     seeCart(e);
@@ -98,7 +100,7 @@ btnSeeCart.addEventListener('click', e => {
 
 const listadoProductos = document.createElement('div');
 document.body.append(listadoProductos);
-listadoProductos.setAttribute('class', 'listadoProductos row container-fluid mx-auto mb-5');
+listadoProductos.setAttribute('class', 'listadoProductos row w-100 mx-auto mb-5');
 
 
 
@@ -120,17 +122,17 @@ for (let producto of productos){
 
 
     div.style.backgroundColor = `white`;
-    div.setAttribute('class', ` item col-4 mb-5 col-md-4 p-0 mx-auto`);
+    div.setAttribute('class', ` item col-4 mb-5 col-md-4 p-0  w-25`);
     contenedorImg.append(imagen);
     imagen.src = `${producto.imagen}`
-    imagen.setAttribute(`class`, 'imagen img-fluid w-75');
+    imagen.setAttribute(`class`, 'imagen img-fluid w-100 mx-auto');
     imagen.alt = producto.nombre;
-    contenedor.setAttribute(`class`, 'py-2');
+    contenedor.setAttribute('class', 'd-block');
     contenedor.append(tituloProducto, precio, descripcion,categoria, boton);
     tituloProducto.innerHTML = producto.nombre;
-    tituloProducto.setAttribute('class', 'nombreProd text-center d-flex justify-center mx-auto');
+    tituloProducto.setAttribute('class', 'nombreProd text-center');
     descripcion.innerHTML = `${producto.descripcion}`;
-    descripcion.setAttribute('class', 'mx-auto');
+    descripcion.setAttribute('class', 'text-center');
     categoria.innerHTML = `Género: ${producto.categoria}`;
 
 
@@ -226,7 +228,7 @@ for (let i = 0; i< btnFiltro.length; i++){
        
     })
 }
-
+let contador;
 const  addToCart = (e) => {
 
     let id = parseFloat(e.target.dataset.id);
@@ -243,7 +245,7 @@ const  addToCart = (e) => {
 
     }
 
-    let contador = document.getElementById('itemsProd');
+     contador = document.getElementById('itemsProd');
     cont ++;
 
     contador.innerHTML = cont;
@@ -259,12 +261,10 @@ const seeCart = (e) => {
     const divModal = document.createElement('div');
  
     divModal.id = 'modalCarrito';
-    divModal.style.display = 'block';
     divModal.style.height = '1000px;'
     divModal.style.position = 'absolute';
     document.body.append(divModal);
 
-   
 
     carrito.ids.forEach(id => {
         console.log(carrito.ids);
@@ -278,6 +278,8 @@ const seeCart = (e) => {
         const divAdd = document.createElement('div');
         const addBtn = document.createElement('button');
         const delBtn = document.createElement('button');
+        
+
        
 
         divProducto.style.backgroundColor = 'white';
@@ -286,13 +288,13 @@ const seeCart = (e) => {
         divImg.append(itemImg);
         itemImg.src = producto.imagen;
         itemImg.setAttribute = ('class', 'imgCarrito');
-        itemImg.style.height = '200 px';
-        itemImg.style.width = '200px';
+        itemImg.style.height = '100 px';
+        itemImg.style.width = '100px';
         itemImg.alt = producto.nombre;
         divTexto.append(itemTitle, itemPrecio);
         divTexto.setAttribute('class', 'py-2');
         itemTitle.innerHTML = `${producto.nombre}`;
-        itemTitle.setAttribute('class', 'text-center');
+        itemTitle.setAttribute('class', 'nombre');
         itemPrecio.innerHTML = `${producto.precio}`;
 
         divAdd.setAttribute('class', 'divBtn');
@@ -302,7 +304,20 @@ const seeCart = (e) => {
             for(let i = 0; i < carrito.ids.length; i++){
                 if( carrito.ids.includes(i)){
                  carrito.cantidad += 1;
+                 carrito.cantidad.length;
+                 console.log(carrito.cantidad.length);
+                
+
+                 let cantProd = document.createElement('div');
                  
+                 cantProd.setAttribute('class', 'cantidadProd');
+                 cantProd.style.backgroundColor = 'black';
+                 cantProd.style.width = '20px';
+                    console.log(carrito.cantidad);
+                divProducto.append(cantProd);
+            
+
+
                 }
                }
         
@@ -329,6 +344,7 @@ const seeCart = (e) => {
 });
     const divTotal = document.createElement('div');
     const textoTotal = document.createElement('p');
+
     divTotal.setAttribute('class', 'totalCarritoDiv');
     textoTotal.setAttribute('class', 'totCarritoTxt')
     textoTotal.innerHTML = `Total: ${total}`;
@@ -344,9 +360,11 @@ const seeCart = (e) => {
         document.getElementById('modalCarrito').remove();
     });
     const emptyCart = document.createElement('button');
+    const btnCheckout = document.createElement('a');
     divCarrito.append(divTotal);
 
-    divModal.append(divCarrito,  a, emptyCart);
+    divModal.append(divCarrito,  a, emptyCart, btnCheckout);
+
    
     emptyCart.setAttribute('class' ,'vaciar p-4');
     emptyCart.style.backgroundColor = 'white';
@@ -354,6 +372,15 @@ const seeCart = (e) => {
     emptyCart.addEventListener('click', e => {
         divCarrito.innerHTML = ''; 
     });
+
+    btnCheckout.setAttribute('class', 'checkoutBtn p-4');
+    btnCheckout.style.backgroundColor  = 'white';
+    btnCheckout.innerHTML  = 'Ir al checkout';
+    btnCheckout.addEventListener('click', e =>{
+        window.location.href = "checkout.html";
+    });
+
+
 }
 
 
