@@ -1,5 +1,8 @@
 'use strict';
 
+/*
+ *  APELLIDOS
+ */
 
 let productos = [
     {
@@ -129,16 +132,17 @@ for (let producto of productos){
     tituloProducto.innerHTML = producto.nombre;
     tituloProducto.setAttribute('class', 'nombreProd text-center');
     descripcion.innerHTML = `${producto.descripcion}`;
-    descripcion.setAttribute('class', 'text-center');
+    descripcion.setAttribute('class', 'text-center mt-5');
+    categoria.setAttribute('class', 'mb-5')
     categoria.innerHTML = `Género: ${producto.categoria}`;
 
 
     precio.innerHTML = `$ ${producto.precio}`;
     precio.setAttribute(`class`, 'precio mx-auto');
     boton.innerHTML = `Agregar al carrito`;
-    boton.style.backgroundColor = 'white';
+    boton.style.backgroundColor = 'pink';
     boton.style.borderStyle = 'solid';
-    boton.setAttribute('class', 'btn-agregar p-3');
+    boton.setAttribute('class', 'btn-agregar p-3 mt-5');
     boton.dataset.id = `${producto.id}`;
     boton.dataset.precio = `${producto.precio}`;
     boton.dataset.categoria = `${producto.categoria}`;
